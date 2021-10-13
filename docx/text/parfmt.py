@@ -301,3 +301,14 @@ class ParagraphFormat(ElementProxy):
             if line == Twips(480):
                 return WD_LINE_SPACING.DOUBLE
         return lineRule
+
+    @property
+    def outline_lvl(self):
+        """
+        Return the outline level. |None| indicates its effective value is inherited from the
+        style hierarchy.
+        """
+        pPr = self._element.pPr
+        if pPr is None:
+            return None
+        return pPr.outline_lvl
