@@ -30,3 +30,11 @@ class Hyperlink(RunItemContainer):
     @property
     def runs(self):
         return super(Hyperlink, self).runs
+
+    @property
+    def address(self):
+        rId = self._h.rId
+        if rId is None:
+            return None
+        else:
+            return self.part.target_ref(rId)

@@ -144,7 +144,7 @@ class CT_PPr(BaseOxmlElement):
         self.get_or_add_jc().val = value
 
     @property
-    def outline_lvl(self):
+    def outline_lvl_val(self):
         """
         The value of the ``<w:outlineLvl>`` child element or 9 (=no outline level) if not present
         """
@@ -152,6 +152,13 @@ class CT_PPr(BaseOxmlElement):
         if lvl is None:
             return 9
         return lvl.val
+
+    @outline_lvl_val.setter
+    def outline_lvl_val(self,value):
+        if value is None:
+            self._remove_outlineLvl()
+        else:
+            self.get_or_add_outlineLvl().val = value
 
 
     @property
@@ -316,6 +323,14 @@ class CT_PPr(BaseOxmlElement):
             self._remove_widowControl()
         else:
             self.get_or_add_widowControl().val = value
+
+
+    @property
+    def numbering_ilvl_val(self):
+        numPr = self.numPr
+        if numPr is None:
+            return None
+        return numPr.ilvl.val
 
 
 class CT_Spacing(BaseOxmlElement):

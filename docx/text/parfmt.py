@@ -270,6 +270,13 @@ class ParagraphFormat(ElementProxy):
     def widow_control(self, value):
         self._element.get_or_add_pPr().widowControl_val = value
 
+    @property
+    def numbering_ilvl(self):
+        pPr = self._element.pPr
+        if pPr is None:
+            return None
+        return pPr.numbering_ilvl_val
+
     @staticmethod
     def _line_spacing(spacing_line, spacing_lineRule):
         """
@@ -311,4 +318,8 @@ class ParagraphFormat(ElementProxy):
         pPr = self._element.pPr
         if pPr is None:
             return None
-        return pPr.outline_lvl
+        return pPr.outline_lvl_val
+
+    @outline_lvl.setter
+    def outline_lvl(self,value):
+        self._element.get_or_add_pPr().outline_lvl_val = value
