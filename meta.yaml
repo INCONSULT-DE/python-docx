@@ -1,0 +1,22 @@
+package:
+  name: python-docx
+  version: 0.8.11
+
+source:
+   path: .
+#  git_url: https://github.com/INCONSULT-DE/python-docx.git
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - lxml>=3.1.0
+  run:
+    - python
+    - lxml>=3.1.0
+
+about:
+  license: MIT
+  license_file: LICENSE
+  home: https://github.com/python-openxml/python-docx
+  summary: Create and update Microsoft Word .docx files.
