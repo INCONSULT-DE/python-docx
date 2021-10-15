@@ -321,6 +321,8 @@ class ST_PositiveCoordinate(XsdLong):
     def validate(cls, value):
         cls.validate_int_in_range(value, 0, 27273042316900)
 
+class ST_Percentage(XsdInt):
+    pass
 
 class ST_RelationshipId(XsdString):
     pass

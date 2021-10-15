@@ -8,12 +8,19 @@ from . import parse_xml
 from .ns import nsdecls
 from .simpletypes import (
     ST_Coordinate, ST_DrawingElementId, ST_PositiveCoordinate,
-    ST_RelationshipId, XsdString, XsdToken
+    ST_RelationshipId, XsdString, XsdToken, ST_Percentage
 )
 from .xmlchemy import (
     BaseOxmlElement, OneAndOnlyOne, OptionalAttribute, RequiredAttribute,
     ZeroOrOne
 )
+
+
+class CT_Drawing(BaseOxmlElement):
+    """
+    ``<w:drawing>`` element
+    """
+    inline = ZeroOrOne('wp:inline')
 
 
 class CT_Blip(BaseOxmlElement):
@@ -32,6 +39,7 @@ class CT_BlipFillProperties(BaseOxmlElement):
     blip = ZeroOrOne('a:blip', successors=(
         'a:srcRect', 'a:tile', 'a:stretch'
     ))
+    src_rect = ZeroOrOne('a:srcRect', successors=('a:tile', 'a:stretch'))
 
 
 class CT_GraphicalObject(BaseOxmlElement):
@@ -89,16 +97,16 @@ class CT_Inline(BaseOxmlElement):
     @classmethod
     def _inline_xml(cls):
         return (
-            '<wp:inline %s>\n'
-            '  <wp:extent cx="914400" cy="914400"/>\n'
-            '  <wp:docPr id="666" name="unnamed"/>\n'
-            '  <wp:cNvGraphicFramePr>\n'
-            '    <a:graphicFrameLocks noChangeAspect="1"/>\n'
-            '  </wp:cNvGraphicFramePr>\n'
-            '  <a:graphic>\n'
-            '    <a:graphicData uri="URI not set"/>\n'
-            '  </a:graphic>\n'
-            '</wp:inline>' % nsdecls('wp', 'a', 'pic', 'r')
+                '<wp:inline %s>\n'
+                '  <wp:extent cx="914400" cy="914400"/>\n'
+                '  <wp:docPr id="666" name="unnamed"/>\n'
+                '  <wp:cNvGraphicFramePr>\n'
+                '    <a:graphicFrameLocks noChangeAspect="1"/>\n'
+                '  </wp:cNvGraphicFramePr>\n'
+                '  <a:graphic>\n'
+                '    <a:graphicData uri="URI not set"/>\n'
+                '  </a:graphic>\n'
+                '</wp:inline>' % nsdecls('wp', 'a', 'pic', 'r')
         )
 
 
@@ -144,25 +152,25 @@ class CT_Picture(BaseOxmlElement):
     @classmethod
     def _pic_xml(cls):
         return (
-            '<pic:pic %s>\n'
-            '  <pic:nvPicPr>\n'
-            '    <pic:cNvPr id="666" name="unnamed"/>\n'
-            '    <pic:cNvPicPr/>\n'
-            '  </pic:nvPicPr>\n'
-            '  <pic:blipFill>\n'
-            '    <a:blip/>\n'
-            '    <a:stretch>\n'
-            '      <a:fillRect/>\n'
-            '    </a:stretch>\n'
-            '  </pic:blipFill>\n'
-            '  <pic:spPr>\n'
-            '    <a:xfrm>\n'
-            '      <a:off x="0" y="0"/>\n'
-            '      <a:ext cx="914400" cy="914400"/>\n'
-            '    </a:xfrm>\n'
-            '    <a:prstGeom prst="rect"/>\n'
-            '  </pic:spPr>\n'
-            '</pic:pic>' % nsdecls('pic', 'a', 'r')
+                '<pic:pic %s>\n'
+                '  <pic:nvPicPr>\n'
+                '    <pic:cNvPr id="666" name="unnamed"/>\n'
+                '    <pic:cNvPicPr/>\n'
+                '  </pic:nvPicPr>\n'
+                '  <pic:blipFill>\n'
+                '    <a:blip/>\n'
+                '    <a:stretch>\n'
+                '      <a:fillRect/>\n'
+                '    </a:stretch>\n'
+                '  </pic:blipFill>\n'
+                '  <pic:spPr>\n'
+                '    <a:xfrm>\n'
+                '      <a:off x="0" y="0"/>\n'
+                '      <a:ext cx="914400" cy="914400"/>\n'
+                '    </a:xfrm>\n'
+                '    <a:prstGeom prst="rect"/>\n'
+                '  </pic:spPr>\n'
+                '</pic:pic>' % nsdecls('pic', 'a', 'r')
         )
 
 
@@ -200,9 +208,13 @@ class CT_PresetGeometry2D(BaseOxmlElement):
 
 class CT_RelativeRect(BaseOxmlElement):
     """
-    ``<a:fillRect>`` element, specifying picture should fill containing
-    rectangle shape.
+    ``<a:fillRect>`` and ``<a:srcRect>`` elements, specifying picture should fill rectangle and source rectangle
+    dimensions. Values are defined as percentage offsets from the corresponding edge.
     """
+    b = OptionalAttribute('b', ST_Percentage)
+    l = OptionalAttribute('l', ST_Percentage)
+    r = OptionalAttribute('r', ST_Percentage)
+    t = OptionalAttribute('t', ST_Percentage)
 
 
 class CT_ShapeProperties(BaseOxmlElement):
