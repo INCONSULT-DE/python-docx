@@ -3,9 +3,8 @@
 Custom element classes related to hyperlinks (CT_Hyperlink).
 """
 
-from ..ns import qn
-from ..simpletypes import XsdString
-from ..xmlchemy import BaseOxmlElement, ZeroOrMore, ZeroOrOne
+from ..simpletypes import ST_RelationshipId
+from ..xmlchemy import BaseOxmlElement, ZeroOrMore, OptionalAttribute
 
 
 class CT_Hyperlink(BaseOxmlElement):
@@ -13,7 +12,7 @@ class CT_Hyperlink(BaseOxmlElement):
     ``<w:hyperlink>`` element, containing the properties and text for a hyperlink.
     """
     r = ZeroOrMore('w:r')
-    rId = ZeroOrOne('r:id')
+    rId = OptionalAttribute('r:id', ST_RelationshipId)
 
     def clear_content(self):
         """
