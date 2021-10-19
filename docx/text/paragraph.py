@@ -8,6 +8,7 @@ from __future__ import (
     absolute_import, division, print_function, unicode_literals
 )
 
+from .smarttag import SmartTag
 from ..enum.style import WD_STYLE_TYPE
 from .parfmt import ParagraphFormat
 from .run import Run
@@ -138,3 +139,6 @@ class Paragraph(RunItemContainer):
 
         if tag == qn('w:hyperlink'):
             return Hyperlink
+
+        if tag == qn('w:smartTag'):
+            return SmartTag

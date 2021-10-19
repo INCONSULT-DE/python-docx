@@ -250,6 +250,9 @@ register_element_cls('w:widowControl',    CT_OnOff)
 from .text.hyperlink import CT_Hyperlink
 register_element_cls('w:hyperlink',  CT_Hyperlink)
 
+from .text.smarttag import CT_SmartTagRun
+register_element_cls('w:smartTag', CT_SmartTagRun)
+
 from .text.run import CT_Br, CT_R, CT_Text 
 register_element_cls('w:br', CT_Br)
 register_element_cls('w:r',  CT_R)

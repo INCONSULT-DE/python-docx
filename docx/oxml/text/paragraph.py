@@ -79,10 +79,10 @@ class CT_P(BaseOxmlElement):
     
     @property
     def inline_items(self):
-        return self.xpath('./w:r | ./w:hyperlink')
+        return self.xpath('./w:r | ./w:hyperlink | ./w:smartTag')
 
     inline_items.__doc__ = (
-        'A list containing each of the ``<w:r> | <w:hyperlink>`` child elements, in the o'
+        'A list containing each of the ``<w:r> | <w:hyperlink> | <w:smartTag>`` child elements, in the o'
         'rder they appear.'
     )
 
