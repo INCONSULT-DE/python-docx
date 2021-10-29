@@ -333,6 +333,14 @@ class CT_PPr(BaseOxmlElement):
         return numPr.ilvl.val
 
 
+    @property
+    def numbering_numid_val(self):
+        numPr = self.numPr
+        if numPr is None:
+            return None
+        return numPr.numId.val
+
+
 class CT_Spacing(BaseOxmlElement):
     """
     ``<w:spacing>`` element, specifying paragraph spacing attributes such as

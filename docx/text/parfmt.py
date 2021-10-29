@@ -277,6 +277,13 @@ class ParagraphFormat(ElementProxy):
             return None
         return pPr.numbering_ilvl_val
 
+    @property
+    def numbering_numid(self):
+        pPr = self._element.pPr
+        if pPr is None:
+            return None
+        return pPr.numbering_numid_val
+
     @staticmethod
     def _line_spacing(spacing_line, spacing_lineRule):
         """
