@@ -38,12 +38,11 @@ class CT_Row(BaseOxmlElement):
 
     def tc_at_grid_col(self, idx):
         """
-        The ``<w:tc>`` element appearing at grid column *idx*. Raises
-        |ValueError| if no ``w:tc`` element begins at that grid column.
+        The ``<w:tc>`` element appearing at grid column *idx*.       
         """
         grid_col = 0
         for tc in self.tc_lst:
-            if grid_col == idx:
+            if grid_col <= idx < grid_col + tc.grid_span:
                 return tc
             grid_col += tc.grid_span
             if grid_col > idx:
